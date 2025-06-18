@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+    <Properties>
+        <property name="springAppName" value="${bundle:bootstrap:spring.application.name}"/>
+        <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+        <property name="SEP" value="|"/>
+        <property name="EFS_LOG_END" value="|EFS|EFS|"/>
+        <property name="LOG_PATTERN"
+                  value="${SEP}${SEP}${SEP}${springAppName}${SEP}%X{X-SAICFC-HOST_IP:-}${SEP}%d{yyyy-MM-dd HH:mm:ss.SSS}${SEP}[%thread]${SEP}%-5level${SEP}%logger{50}${SEP}%X{X-SAICFC-URI}${SEP}%msg${EFS_LOG_END}%n"/>
+        <property name="FILE_NAME" value="${env:BUILD_FOLDER:-build}/${springAppName}.log"/>
+        <property name="FILE_PATTERN" value="${env:BUILD_FOLDER:-build}/${springAppName}.%d{yyyy-MM-dd}.log.gz"/>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout charset="UTF-8"
+                           pattern="${LOG_PATTERN}"/>
+        </Console>
+        <RollingRandomAccessFile fileName="${FILE_NAME}" filePattern="${FILE_PATTERN}" name="RandomAccessFile" immediateFlush="true" >
+            <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="999"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RandomAccessFile"/>
+        </Root>
+    </Loggers>
+</configuration>

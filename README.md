@@ -14,10 +14,8 @@ ldl-DeserializationViewer，一款缓存序列化数据可视化查询工具，�
 3.  xxxx
 
 #### 使用说明
+1. 该工具是用来查询redis存储的值和序列化的数据，支持根据不同环境动态配置或输入ip端口的方式，不需依赖序列化dto的jar包，支持redis设置密码的查询和单机或集群方式查询，项目支持springboot打包，如果是不支持springboot的环境可以用assembly方式打包成控台使用。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
 
 #### 参与贡献
 
