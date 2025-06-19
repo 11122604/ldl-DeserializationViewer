@@ -1,7 +1,7 @@
 # ldl-DeserializationViewer
 
 #### 介绍
-ldl-DeserializationViewer，一款缓存序列化数据可视化查询工具，采用javaasssist和asm字节码生成技术，支持jdk等序列化协议直接转换成json，而无需依赖定义源DTO类，无需依赖serializable接口及serialVersionUID。支持种打包方式，springboot包：配合swagger通过web端访问；普通jar包：直接运行脚本，获取序列化数据可视化结果。
+ldl-DeserializationViewer，一款缓存序列化数据可视化查询工具，采用javaasssist和asm字节码生成技术，支持jdk等序列化协议直接转换成json，而无需依赖定义源DTO类，无需依赖serializable接口及serialVersionUID。可用于线上运维序列化数据可视化，接口开发数据适配。支持种打包方式，springboot包：配合swagger通过web端访问；普通jar包：直接运行脚本，获取序列化数据可视化结果。
 
 #### 软件架构
 软件架构说明
