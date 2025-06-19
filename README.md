@@ -7,6 +7,7 @@ ldl-DeserializationViewer，一款缓存序列化数据可视化查询工具，�
 软件架构说明
 ![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/9.png)
  **实现效果举例** 
+
 JDK序列化数据源（乱码）：
 �� sr 1com.datalight.tools.deserialization.model.TestDto��c�� L idt Ljava/lang/Long;L namet Ljava/lang/String;L 	otherInfoq ~ xpsr java.lang.Long;��̏#� J valuexr java.lang.Number������  xp       t 姓名t 学生
 
