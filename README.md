@@ -14,8 +14,8 @@ ldl-DeserializationViewer，一款缓存序列化数据可视化查询工具，�
 **1.打包**
 
 在项目路径的pom.xml文件启用spring-boot-maven-plugin打包插件，注释maven-assembly-plugin插件，使其生成springboot的服务包。
+![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/1.png)
 
-![](https://i-blog.csdnimg.cn/direct/8e232f5efdea4a3f94859746ed46d802.png)
 
 maven打包后生成deserialization-viewer-0.0.1-SNAPSHOT.jar
 
@@ -25,7 +25,7 @@ maven打包后生成deserialization-viewer-0.0.1-SNAPSHOT.jar
 
 **3.使用**
 
-![](https://i-blog.csdnimg.cn/direct/ecc544b99c784b64aad4ccb121271828.png)
+![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/2.png)
 
 前端采用swagger页面，访问路径为http://ip:port/deserialization/swagger-ui.html#
 
@@ -33,13 +33,13 @@ maven打包后生成deserialization-viewer-0.0.1-SNAPSHOT.jar
 
 据主机查询：点击Try it out,输入ipAndPort，key，如果配置了redis密码需要输入password否则可以不输入：
 
-![](https://i-blog.csdnimg.cn/direct/f8db2b9e16ba4a4595e5bd75564602f7.png)
+![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/3.png)
 
 点击execute,执行查询
 
 据环境配置查询：
 
-![](https://i-blog.csdnimg.cn/direct/c393fe421272425ca8d9c5771537c1c7.png)
+![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/4.png)
 
 envName参数是在hostconfig.properties中指定的可以动态加载， 返回的数据data是redis中key存储的数据。
 
@@ -53,11 +53,11 @@ envName参数是在hostconfig.properties中指定的可以动态加载， 返回
 
 注释spring boot 打包插件，启用控制台打包
 
-![](https://i-blog.csdnimg.cn/direct/76c7728b017f4fe2b458071965e7e477.png)
+![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/5.png)
 
 生成jar包如下：
 
-![](https://i-blog.csdnimg.cn/direct/5850ac907f924ff2b2c0a8b7000f091b.png)
+![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/6.png)
 
 3.使用
 
@@ -65,7 +65,7 @@ envName参数是在hostconfig.properties中指定的可以动态加载， 返回
 
 Java -jar .\deserialization-viewer-0.0.1-SNAPSHOT-jar-with-dependencies.jar 192.168.2.18:7004 testKey
 
-![](https://i-blog.csdnimg.cn/direct/b5a3cffd959b45debe5eee04ade2dbc7.png)
+![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/7.png)
 
 192.168.2.18:7004 是redis服务器的地址和ip如果设置密码可以在后面跟@密码方式，参考springboot的方式；
 
@@ -75,7 +75,7 @@ testKey是要查询的redis的key。
 
 Java -jar .\deserialization-viewer-0.0.1-SNAPSHOT-jar-with-dependencies.jar TEST testKey
 
-![](https://i-blog.csdnimg.cn/direct/4b3543699794435fa5c3387a39d94f11.png)
+![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/8.png)
 
 TEST是在hostconfig.properties中配置的参考springboot方式的配置，testKey是要查的key。
 
