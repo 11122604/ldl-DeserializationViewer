@@ -14,7 +14,7 @@ JDK序列化数据源（乱码）：
 
 �� sr 1com.datalight.tools.deserialization.model.TestDto��c�� L idt Ljava/lang/Long;L namet Ljava/lang/String;L otherInfoq ~ xpsr java.lang.Long;��̏#� J valuexr java.lang.Number������ xp t 姓名t 学生
 
-ldl-DeserializationViewer 发序列化引擎->json格式的直接转换：
+ldl-DeserializationViewer 反序列化引擎->json格式的直接转换：
 
 {"id":1,"name":"姓名","otherInfo":"学生"}
 
