@@ -1,18 +1,23 @@
 # ldl-DeserializationViewer
 
-#### 介绍
-ldl-DeserializationViewer，一款缓存序列化数据可视化查询工具，采用javaasssist和asm字节码生成技术，支持jdk等序列化协议直接转换成json，而无需依赖定义源DTO类，无需依赖serializable接口及serialVersionUID。可用于线上运维序列化数据可视化，接口开发数据适配。支持种打包方式，springboot包：配合swagger通过web端访问；普通jar包：直接运行脚本，获取序列化数据可视化结果。
+#### 为什么有这个工具?
+传统序列化数据(jdk序列化，protbuf等协议) ，存储在缓存（redis，文件等)中无法直接解析，想要获取明文数据必须依赖原始DTO，并且必须实现序列化接口Serilizable，且serilizationUID必须相同，否则直接报异常。如果不同的序列化数据要实现转换，没有办法做到通用性。这大大提升了线上数据问题排查，跨系统接口对接的难度，而原生java没有提供相应的解决办法，所以需要用新的工具来解决。
 
-#### 软件架构
+
+#### 这个工具是怎么实现的?
+ldl-DeserializationViewer，一款缓存序列化数据可视化查询和开发工具，采用javaassist和asm字节码生成技术，支持jdk等序列化协议（其他协议正在开发中)直接转换成json，而无需依赖定义源DTO类，无需依赖serializable接口及serialVersionUID。可用于线上运维序列化数据可视化，接口开发数据适配。支持种打包方式，springboot包：配合swagger通过web端访问；普通jar包：直接运行脚本，获取序列化数据可视化结果。
 软件架构说明
 ![输入图片说明](src/main/java/com/datalight/tools/deserialization/doc/9.png)
  **实现效果举例** 
 
 JDK序列化数据源（乱码）：
-�� sr 1com.datalight.tools.deserialization.model.TestDto��c�� L idt Ljava/lang/Long;L namet Ljava/lang/String;L 	otherInfoq ~ xpsr java.lang.Long;��̏#� J valuexr java.lang.Number������  xp       t 姓名t 学生
 
-ldl-DeserializationViewer 发序列化引擎：
+�� sr 1com.datalight.tools.deserialization.model.TestDto��c�� L idt Ljava/lang/Long;L namet Ljava/lang/String;L otherInfoq ~ xpsr java.lang.Long;��̏#� J valuexr java.lang.Number������ xp t 姓名t 学生
+
+ldl-DeserializationViewer 发序列化引擎->json格式的直接转换：
+
 {"id":1,"name":"姓名","otherInfo":"学生"}
+
 
 #### 安装教程及使用说明
 
@@ -86,6 +91,9 @@ Java -jar .\deserialization-viewer-0.0.1-SNAPSHOT-jar-with-dependencies.jar TEST
 
 TEST是在hostconfig.properties中配置的参考springboot方式的配置，testKey是要查的key。
 
+
+#### 结语
+目前本项目已完成Json和JDK反序列化和redis数据源的开发，其他序列化协议方式正在开发中，致力于提供不同序列化协议的数据转换中间件，及数据运维工具。
 
 #### 参与贡献
 
