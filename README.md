@@ -1,8 +1,8 @@
 # ldl-DeserializationViewer
 
-> A powerful visualization tool for Redis serialized data that converts Java serialized cache data to readable JSON format without requiring original DTO classes.
+> A powerful visualization tool for serialized data that converts Java serialized cache data to readable JSON format without requiring original DTO classes.
 
-一款强大的Redis序列化数据可视化工具，能够将Java序列化的缓存数据转换为可读的JSON格式，无需原始DTO类定义。
+一款强大的序列化数据可视化工具，能够将Java序列化的缓存数据转换为可读的JSON格式，无需原始DTO类定义。
 
 ---
 
