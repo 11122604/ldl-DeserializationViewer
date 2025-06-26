@@ -9,8 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
 
 /**
- * @author leolu
- * @since 2022-10-13
+ * @author 1053459255@qq.com
+ * @since 2025-06-26
  *
  */
 public class SerialObjectInputStream extends ObjectInputStream {
