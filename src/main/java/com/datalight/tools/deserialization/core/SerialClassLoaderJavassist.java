@@ -1,4 +1,4 @@
-package com.datalight.tools.deserialization.util;
+package com.datalight.tools.deserialization.core;
 
 import javassist.*;
 import org.apache.commons.lang.StringUtils;
@@ -8,8 +8,9 @@ import java.io.ObjectStreamField;
 import java.lang.reflect.Method;
 
 /**
- * @author leolu
- * @since 2022-10-13
+ /**
+ * @author 1053459255@qq.com
+ * @since 2025-06-26
  */
 public class SerialClassLoaderJavassist extends ClassLoader {
     /**

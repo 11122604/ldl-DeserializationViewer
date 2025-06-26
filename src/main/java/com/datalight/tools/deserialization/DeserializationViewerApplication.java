@@ -3,25 +3,30 @@ package com.datalight.tools.deserialization;
 import com.alibaba.fastjson.JSON;
 import com.datalight.tools.deserialization.model.RedisOperParam;
 import com.datalight.tools.deserialization.service.impl.RedisDataServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+//**
 /**
- * @author leolu
- * @since 2022-10-13
+ * @author 1053459255@qq.com
+ * @since 2025-06-26
  */
 public class DeserializationViewerApplication {
+
+    private static final Logger logger = LoggerFactory.getLogger(DeserializationViewerApplication.class);
 
     /**
      *
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("参数：" + JSON.toJSON(args));
+        logger.info("参数：{}", JSON.toJSON(args));
         if(args.length != 2){
-            System.out.println("参数格式应为[ip:port rediskey] 或 [配置文件数字 rediskey]");
+            logger.error("参数格式应为[ip:port rediskey] 或 [配置文件数字 rediskey]");
             return ;
         }
         ResourceBundle resource = ResourceBundle.getBundle("config/application");
@@ -29,7 +34,7 @@ public class DeserializationViewerApplication {
             RedisDataServiceImpl.HOST_CONFIG_LINUX =  resource.getString("host.config.linux");
             RedisDataServiceImpl.HOST_CONFIG_WINDOW = resource.getString("host.config.windows");
         }catch (Exception e){
-            System.out.println("环境配置不全");
+            logger.warn("环境配置不全", e);
         }
         String argTwo = args[1];
         String argOne = args[0];
@@ -48,19 +53,17 @@ public class DeserializationViewerApplication {
                 str = RedisDataServiceImpl.searchWithEnvSt(param);
             }
         } catch (IOException e) {
-            System.out.println("配文件读取失败");
-            e.printStackTrace();
+            logger.error("配置文件读取失败", e);
             return ;
         }catch (Exception e){
-            System.out.println("查询失败");
-            e.printStackTrace();
+            logger.error("查询失败", e);
             return ;
         }
         if(str == null){
-            System.out.println("----------> not found");
+            logger.info("----------> not found");
             return;
         }else {
-            System.out.println(str);
+            logger.info("查询结果: {}", str);
         }
 
     }

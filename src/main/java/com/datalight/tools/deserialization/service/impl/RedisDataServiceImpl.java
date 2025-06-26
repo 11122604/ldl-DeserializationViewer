@@ -3,9 +3,11 @@ package com.datalight.tools.deserialization.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.datalight.tools.deserialization.model.RedisOperParam;
 import com.datalight.tools.deserialization.service.RedisDataService;
-import com.datalight.tools.deserialization.util.SerialObjectInputStream;
+import com.datalight.tools.deserialization.core.SerialObjectInputStream;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,11 +22,14 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author leolu
- * @since 2022-10-13
+ /**
+ * @author 1053459255@qq.com
+ * @since 2025-06-26
  */
 @Service
 public class RedisDataServiceImpl implements RedisDataService, InitializingBean {
+
+    private static final Logger logger = LoggerFactory.getLogger(RedisDataServiceImpl.class);
 
     @Value("${host.config.windows:C:\\Users\\hostconfig.txt}")
     private String hostConfigWindows;
@@ -103,7 +108,7 @@ public class RedisDataServiceImpl implements RedisDataService, InitializingBean 
         String path = acquirePath();
         List<String> items = Files.readAllLines(Paths.get(path, new String[0]));
         if(items == null || items.size() == 0){
-            System.out.println("配文件为空");
+            logger.error("配置文件为空");
             throw new Exception("配置文件为空");
         }
         String addressPass = null;
@@ -114,7 +119,7 @@ public class RedisDataServiceImpl implements RedisDataService, InitializingBean 
             }
         }
         if(StringUtils.isBlank(addressPass)){
-            System.out.println("配置项不存在");
+            logger.error("配置项不存在");
             throw new Exception("配置项不存在");
         }
         RedisOperParam redisOpr = generParam(addressPass);
@@ -155,8 +160,7 @@ public class RedisDataServiceImpl implements RedisDataService, InitializingBean 
         try {
             result =  queryData(redisOperParam);
         }catch (Exception ex){
-            System.out.println("查询redis失败, key: " + redisOperParam.getKey() + "， ipAndPort: " + redisOperParam.getIpAndPort());
-            ex.printStackTrace();
+            logger.error("查询redis失败, key: {}, ipAndPort: {}", redisOperParam.getKey(), redisOperParam.getIpAndPort(), ex);
             throw ex;
         }
         if(result == null || result.length == 0){
@@ -169,8 +173,7 @@ public class RedisDataServiceImpl implements RedisDataService, InitializingBean 
             ois.close();
             return JSONObject.toJSONString(o);
         } catch (Exception e) {
-            System.out.println("读取对象失败, 以默认字符集返回 key: " + redisOperParam.getKey() + "， ipAndPort: " + redisOperParam.getIpAndPort());
-            e.printStackTrace();
+            logger.warn("读取对象失败, 以默认字符集返回 key: {}, ipAndPort: {}", redisOperParam.getKey(), redisOperParam.getIpAndPort(), e);
             String str = new String(result, Charset.defaultCharset());
             return str;
 
@@ -188,8 +191,8 @@ public class RedisDataServiceImpl implements RedisDataService, InitializingBean 
             Jedis jedis = createJedis(redisOperParam.getIpAndPort(),redisOperParam.getPassword());
             Set<byte[]> keys = jedis.keys(redisOperParam.getKey().getBytes());
             if(keys == null || keys.size() == 0){
-                System.out.println("key不存在," + redisOperParam.getKey());
-                throw new RuntimeException("key不存在," + redisOperParam.getKey());
+                logger.error("key不存在: {}", redisOperParam.getKey());
+                throw new RuntimeException("key不存在: " + redisOperParam.getKey());
             }
             result = jedis.get(redisOperParam.getKey().getBytes());
         }else {
@@ -241,10 +244,10 @@ public class RedisDataServiceImpl implements RedisDataService, InitializingBean 
         String path = null;
         String os = System.getProperty("os.name");
         if (os != null && os.toLowerCase().startsWith("windows")) {
-            System.out.println(String.format("当前系统版本是:%s", os));
+            logger.info("当前系统版本是: {}", os);
             path = HOST_CONFIG_WINDOW;
         } else { //其它操作系统
-            System.out.println(String.format("当前系统版本是:%s", os));
+            logger.info("当前系统版本是: {}", os);
             path = HOST_CONFIG_LINUX;
         }
         return path;

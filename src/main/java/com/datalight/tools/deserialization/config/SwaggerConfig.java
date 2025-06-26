@@ -1,5 +1,7 @@
 package com.datalight.tools.deserialization.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,8 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(SwaggerConfig.class);
+
     private BeanFactory beanFactory;
 
     private static final String API_GROUP_NAME = "cdp";
@@ -35,7 +39,7 @@ public class SwaggerConfig {
     @Bean
     @SuppressWarnings({"unchecked"})
     public Docket testApi() {
-        System.out.println("启动Swagger");
+        logger.info("启动Swagger");
         ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<>();
         tokenPar.name("X-Auth").description("令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
