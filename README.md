@@ -1,55 +1,55 @@
 # ldl-DeserializationViewer
 
-> A powerful visualization tool for serialized data that converts Java serialized cache data to readable JSON format without requiring original DTO classes.
+> A powerful visualization tool for  serialized data that converts Java serialized cache data to readable JSON format without requiring original DTO classes.
 
-一款强大的序列化数据可视化工具，能够将Java序列化的缓存数据转换为可读的JSON格式，无需原始DTO类定义。
-
----
-
-## 🤔 Why - 为什么需要这个工具
-
-### 痛点问题
-在实际开发和运维过程中，我们经常遇到以下问题：
-
-- **Redis数据不可读**：存储在Redis中的Java序列化数据以二进制形式存在，无法直接查看内容
-- **调试困难**：排查缓存相关问题时，无法快速查看缓存对象的具体内容和结构
-- **依赖缺失**：生产环境中往往缺少原始的DTO类定义，传统反序列化方法失效
-- **版本兼容性**：不同版本的serialVersionUID导致反序列化失败
-- **运维盲区**：运维人员无法直观了解缓存数据的业务含义
-
-### 解决方案
-ldl-DeserializationViewer 通过**动态字节码生成技术**，实现了：
-- ✅ **无依赖反序列化**：无需原始DTO类，无需serialVersionUID
-- ✅ **实时数据查看**：直接将序列化数据转换为JSON格式
-- ✅ **多环境支持**：支持开发、测试、生产等多环境配置
-- ✅ **零侵入部署**：既可以作为独立工具，也可以集成到现有系统
+A powerful  serialized data visualization tool that converts Java serialized cache data into readable JSON format without requiring original DTO class definitions.
 
 ---
 
-## 📋 What - 这是什么工具
+## 🤔 Why - Why Do We Need This Tool
 
-### 核心功能
+### Pain Points
+In actual development and operations, we often encounter the following problems:
 
-#### 🔍 序列化数据可视化
-- 将Redis中的Java序列化字节数据转换为可读JSON
-- 支持复杂对象结构的完整还原
-- 自动处理基本数据类型和对象引用
+- **Unreadable Redis Data**: Java serialized data stored in Redis exists in binary form and cannot be viewed directly
+- **Debugging Difficulties**: When troubleshooting cache-related issues, we cannot quickly view the specific content and structure of cached objects
+- **Missing Dependencies**: Production environments often lack original DTO class definitions, causing traditional deserialization methods to fail
+- **Version Compatibility**: Different versions of serialVersionUID lead to deserialization failures
+- **Operations Blind Spots**: Operations personnel cannot intuitively understand the business meaning of cached data
 
-#### 🛠️ 双模式运行
-- **Web模式**：Spring Boot + Swagger UI，提供友好的Web界面
-- **命令行模式**：独立JAR包，支持脚本化操作
+### Solution
+ldl-DeserializationViewer achieves the following through **dynamic bytecode generation technology**:
+- ✅ **Dependency-free Deserialization**: No need for original DTO classes or serialVersionUID
+- ✅ **Real-time Data Viewing**: Directly converts serialized data to JSON format
+- ✅ **Multi-environment Support**: Supports development, testing, production and other multi-environment configurations
+- ✅ **Zero-intrusion Deployment**: Can be used as a standalone tool or integrated into existing systems
 
-#### 🏗️ 智能类生成
-- 基于**Javassist**和**ASM**的双重字节码生成引擎
-- 动态创建类结构，完全兼容Java序列化规范
-- 智能类型推断和字段映射
+---
 
-#### 🌐 多环境管理
-- 支持预配置的环境切换（DEV/TEST/PROD）
-- 灵活的Redis连接配置（单机/集群）
-- 密码认证和安全连接支持
+## 📋 What - What Is This Tool
 
-### 技术架构
+### Core Features
+
+#### 🔍 Serialized Data Visualization
+- Converts Java serialized byte data in Redis to readable JSON
+- Supports complete restoration of complex object structures
+- Automatically handles primitive data types and object references
+
+#### 🛠️ Dual Mode Operation
+- **Web Mode**: Spring Boot + Swagger UI, providing a friendly web interface
+- **Command Line Mode**: Standalone JAR package, supporting scripted operations
+
+#### 🏗️ Intelligent Class Generation
+- Dual bytecode generation engine based on **Javassist** and **ASM**
+- Dynamically creates class structures, fully compatible with Java serialization specifications
+- Intelligent type inference and field mapping
+
+#### 🌐 Multi-environment Management
+- Supports pre-configured environment switching (DEV/TEST/PROD)
+- Flexible Redis connection configuration (standalone/cluster)
+- Password authentication and secure connection support
+
+### Technical Architecture
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -75,209 +75,222 @@ ldl-DeserializationViewer 通过**动态字节码生成技术**，实现了：
           └─────────────────────┘
 ```
 
-### 核心技术栈
-- **Spring Boot 2.3.3** - Web框架
-- **Jedis 2.9.0** - Redis客户端
-- **Javassist 3.28.0** - 字节码生成
-- **ASM 9.2** - 字节码操作
-- **FastJSON 1.2.68** - JSON序列化
-- **Swagger 2.9.2** - API文档
+### Core Technology Stack
+- **Spring Boot 2.3.3** - Web framework
+- **Jedis 2.9.0** - Redis client
+- **Javassist 3.28.0** - Bytecode generation
+- **ASM 9.2** - Bytecode manipulation
+- **FastJSON 1.2.68** - JSON serialization
+- **Swagger 2.9.2** - API documentation
 
 ---
 
-## 🚀 How - 如何使用
+## 🚀 How - How to Use
 
-### 快速开始
+### Quick Start
 
-#### 1. 项目构建
+#### 1. Project Build
 
 ```bash
-# 克隆项目
+# Clone the project
 git clone <repository-url>
 cd ldl-DeserializationViewer
 
-# 编译项目
+# Compile the project
 mvn clean package
 ```
 
-#### 2. 配置环境
+#### 2. Environment Configuration
 
-创建环境配置文件：
+Create environment configuration file:
 
 **Windows**: `C:\Users\{username}\Desktop\hostconfig.properties`  
 **Linux**: `/data/cdp/read_redis/hostconfig.properties`
 
-配置格式：
+Configuration format:
 ```properties
-# 环境名#Redis地址@密码
+# EnvironmentName#RedisAddress@Password
 DEV#127.0.0.1:6379@password123
 TEST#192.168.1.100:6379
 PROD#192.168.1.200:6379,192.168.1.201:6379@prodpass
 ```
 
-### 使用方式
+### Usage Methods
 
-#### 🌐 Web模式
+#### 🌐 Web Mode
 
-1. **启用Spring Boot打包**
+1. **Enable Spring Boot Packaging**
    ```xml
-   <!-- 在pom.xml中启用 -->
+   <!-- Enable in pom.xml -->
    <plugin>
        <groupId>org.springframework.boot</groupId>
        <artifactId>spring-boot-maven-plugin</artifactId>
    </plugin>
    ```
 
-2. **启动服务**
+2. **Start Service**
    ```bash
    java -jar deserialization-viewer-0.0.1-SNAPSHOT.jar &
    ```
 
-3. **访问界面**
+3. **Access Interface**
    ```
    http://localhost:8087/deserialization/swagger-ui.html
    ```
 
-4. **API使用**
+4. **API Usage**
    
-   **根据主机查询**：
-   - 接口：`GET /search`
-   - 参数：`ipAndPort`, `password`(可选), `key`
-   - 示例：`/search?ipAndPort=127.0.0.1:6379&key=user:1001`
+   **Query by Host**:
+   - Endpoint: `GET /search`
+   - Parameters: `ipAndPort`, `password`(optional), `key`
+   - Example: `/search?ipAndPort=127.0.0.1:6379&key=user:1001`
 
-   **根据环境查询**：
-   - 接口：`GET /searchByEnv`
-   - 参数：`envName`, `key`
-   - 示例：`/searchByEnv?envName=TEST&key=user:1001`
+   **Query by Environment**:
+   - Endpoint: `GET /searchByEnv`
+   - Parameters: `envName`, `key`
+   - Example: `/searchByEnv?envName=TEST&key=user:1001`
 
-#### 💻 命令行模式
+#### 💻 Command Line Mode
 
-1. **启用命令行打包**
+1. **Enable Command Line Packaging**
    ```xml
-   <!-- 在pom.xml中启用 -->
+   <!-- Enable in pom.xml -->
    <plugin>
        <artifactId>maven-assembly-plugin</artifactId>
    </plugin>
    ```
 
-2. **直接IP访问**
+2. **Direct IP Access**
    ```bash
    java -jar deserialization-viewer-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
         192.168.1.100:6379@password123 user:1001
    ```
 
-3. **环境配置访问**
+3. **Environment Configuration Access**
    ```bash
    java -jar deserialization-viewer-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
         TEST user:1001
    ```
 
-### 输出示例
+### Output Example
 
 ```json
 {
   "success": true,
   "data": {
     "userId": 1001,
-    "userName": "张三",
-    "email": "zhangsan@example.com",
+    "userName": "John Doe",
+    "email": "johndoe@example.com",
     "createTime": "2024-01-15T10:30:00",
     "profile": {
       "age": 28,
-      "city": "北京",
-      "interests": ["编程", "阅读", "旅行"]
+      "city": "New York",
+      "interests": ["Programming", "Reading", "Travel"]
     }
   },
   "message": null
 }
 ```
 
-### 高级配置
+### Advanced Configuration
 
-#### 应用配置 (`application.properties`)
+#### Application Configuration (`application.properties`)
 ```properties
-# 服务配置
+# Service configuration
 spring.application.name=DeserializationViewer
 server.port=8087
 server.servlet.context-path=/deserialization
 
-# 环境配置
+# Environment configuration
 env.names=dev,test,product
 host.config.windows=C:\\Users\\config\\hostconfig.properties
 host.config.linux=/data/config/hostconfig.properties
 ```
 
-#### 集群Redis支持
+#### Redis Cluster Support
 ```bash
-# 集群地址用逗号分隔
+# Cluster addresses separated by commas
 CLUSTER#192.168.1.100:7000,192.168.1.101:7000,192.168.1.102:7000@clusterpass
 ```
 
-### 故障排除
+### Troubleshooting
 
-#### 常见问题
+#### Common Issues
 
-1. **类加载失败**
+1. **Class Loading Failure**
    ```
-   问题：自定义加载失败 com.example.UserDTO
-   解决：检查序列化数据完整性，确认Redis连接正常
-   ```
-
-2. **配置文件未找到**
-   ```
-   问题：配置文件读取失败
-   解决：确认hostconfig.properties路径正确，文件格式符合要求
+   Issue: Custom loading failed com.example.UserDTO
+   Solution: Check serialized data integrity, confirm Redis connection is normal
    ```
 
-3. **Redis连接失败**
+2. **Configuration File Not Found**
    ```
-   问题：查询redis失败
-   解决：检查网络连接、Redis服务状态、密码配置
+   Issue: Configuration file reading failed
+   Solution: Confirm hostconfig.properties path is correct, file format meets requirements
    ```
 
-#### 日志配置
-项目使用Log4j2，可通过`log4j2-spring.xml`调整日志级别：
+3. **Redis Connection Failure**
+   ```
+   Issue: Redis query failed
+   Solution: Check network connection, Redis service status, password configuration
+   ```
+
+#### Log Configuration
+The project uses Log4j2, you can adjust log levels through `log4j2-spring.xml`:
 ```xml
 <Logger name="com.datalight.tools.deserialization" level="DEBUG"/>
 ```
 
 ---
 
-## 📊 性能特性
+## 📊 Performance Features
 
-- **零依赖反序列化**：无需原始类定义
-- **内存高效**：流式处理，支持大对象
-- **并发安全**：无状态设计，支持多线程访问
-- **错误降级**：反序列化失败时返回原始字符串
+- **Zero-dependency Deserialization**: No need for original class definitions
+- **Memory Efficient**: Stream processing, supports large objects
+- **Concurrency Safe**: Stateless design, supports multi-threaded access
+- **Error Degradation**: Returns original string when deserialization fails
 
-## 🤝 贡献指南
+## 🤝 Contributing
 
-1. Fork 本仓库
-2. 创建特性分支：`git checkout -b feature/AmazingFeature`
-3. 提交更改：`git commit -m 'Add some AmazingFeature'`
-4. 推送分支：`git push origin feature/AmazingFeature`
-5. 提交Pull Request
+1. Fork this repository
+2. Create a feature branch: `git checkout -b feature/AmazingFeature`
+3. Commit your changes: `git commit -m 'Add some AmazingFeature'`
+4. Push to the branch: `git push origin feature/AmazingFeature`
+5. Submit a Pull Request
 
-## 📄 许可证
+## 📄 License
 
-本项目基于 [LICENSE](LICENSE) 许可证开源。
+This project is open source under the [LICENSE](LICENSE) license.
 
 ---
 
-## 💡 技术原理
+## 💡 Technical Principles
 
-### 动态类生成原理
-1. 解析`ObjectStreamClass`获取类元信息
-2. 使用Javassist/ASM动态生成字节码
-3. 创建自定义ClassLoader加载生成的类
-4. 通过标准Java序列化API完成反序列化
+### Dynamic Class Generation Principle
+1. Parse `ObjectStreamClass` to get class metadata
+2. Use Javassist/ASM to dynamically generate bytecode
+3. Create custom ClassLoader to load generated classes
+4. Complete deserialization through standard Java serialization API
 
-### 兼容性保证
-- 支持JDK 1.8+
-- 兼容Redis 2.x - 6.x
-- 支持Spring Boot 2.x
+### Compatibility Guarantee
+- Supports JDK 1.8+
+- Compatible with Redis 2.x - 6.x
+- Supports Spring Boot 2.x
 
-**让Redis中的序列化数据不再是黑盒！** 🎯
+### Project Structure
 
+```
+src/main/java/com/datalight/tools/deserialization/
+├── controller/          # REST API controllers
+├── service/            # Business logic layer
+├── model/              # Data models
+├── core/               # Core utilities (bytecode generation)
+├── config/             # Configuration classes (Swagger etc.)
+└── DeserializationViewerApplication.java  # Command line entry
+```
 
+### Author Information
+- **Author**: 1053459255@qq.com
+- **Since**: 2025-06-26
 
+**Make serialized data in Redis no longer a black box!** 🎯
